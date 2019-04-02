@@ -1,0 +1,73 @@
+#include<stdio.h>
+#include<pthread.h>
+#include<unistd.h>
+void main()
+{
+int n,a[10];
+
+void *f1(void *p)
+{
+int *q=(int *)p;
+int i=0;
+while( i<n)
+{
+printf("%d",*q);
+i++;
+q++;
+}
+printf("thread1\n");
+}
+
+
+void *f2(void *p)
+{
+int *q=(int *)p;
+int i=0;
+while( i<n)
+{
+printf("%d",*q);
+i++;
+q++;
+}
+printf("thread2\n");
+}
+
+
+void *f3(void *p)
+{
+int *q=(int *)p;
+int i=0;
+while( i<n)
+{
+printf("%d",*q);
+i++;
+q++;
+}
+printf("thread3\n");
+}
+
+
+printf("Enter the total number to be entered\n");
+scanf("%d",&n);
+for(int i=0;i<n;i++)
+{
+printf("Enter number %d ",i);
+scanf("%d",&a[i]);
+}
+printf("NUMBERS ENTERED ARE : \n");
+for(int i=0;i<n;i++)
+{
+
+printf("%d",a[i]);
+printf("\n");
+}
+
+pthread_t th1,th2,th3;
+pthread_create(&th1,NULL,f1,a);
+pthread_join(th1,NULL);
+pthread_create(&th2,NULL,f2,a);
+pthread_join(th2,NULL);
+pthread_create(&th3,NULL,f3,a);
+pthread_join(th3,NULL);
+
+}
