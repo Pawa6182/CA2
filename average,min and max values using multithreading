@@ -1,7 +1,14 @@
 #include<stdio.h>
+#include<sys/types.h>
+#include<sys/wait.h>
 #include<pthread.h>
 #include<unistd.h>
-int avg=0,min,max;
+#include<stdlib.h>
+long avg=0,min=0,max=0,n;
+void *f1();
+void *f2();
+void *f3();
+
 void main()
 {
 int n,a[10];
@@ -12,20 +19,20 @@ void *f1(void *a)
 int *q=(int *)a;
 int i=0;
 
-
 for(i=0;i<n;i++)
 {
+
 avg=avg+q[i];
 }
 avg=avg/n;
-printf("\nAVERAGE OF ENTERED NUMBER IS  :  %d\n",avg);
+printf("\nAVERAGE OF ENTERED NUMBER IS  :  %ld\n",avg);
+
 }
-
-
 void *f2(void *a)
 {
 int *q=(int *)a;
-int i;
+int i,b;
+
 min=q[0];
 for(i=0;i<n;i++)
 {
@@ -35,9 +42,9 @@ if(q[i]<min)
 min=q[i];
 }
 }
-printf("\nMINIMUM NUMBER OF ENTERED ELEMENT IS  :  %d \n",min);
-}
+printf("\nMINIMUM NUMBER OF ENTERED ELEMENT IS  :  %ld \n",min);
 
+}
 
 void *f3(void *a)
 {
@@ -51,9 +58,9 @@ if(q[i]>max)
 max=q[i];
 }
 }
-printf("\nMAXIMUM NUMBER OF ENTERED ELEMENT IS  :  %d\n",max);
-}
+printf("\nMAXIMUM NUMBER OF ENTERED ELEMENT IS  :  %ld\n",max);
 
+}
 
 printf("Enter the total number to be entered\n");
 scanf("%d",&n);
@@ -79,3 +86,5 @@ pthread_create(&th3,NULL,f3,a);
 pthread_join(th3,NULL);
 
 }
+
+
